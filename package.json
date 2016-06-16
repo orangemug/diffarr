@@ -12,7 +12,10 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.5.3",
-    "readme-tester": "orangemug/readme-tester"
+    "readme-tester": "orangemug/readme-tester",
+    "lodash.isequal": "^4.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash.find": "^4.4.0"
+  }
 }

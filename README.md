@@ -11,14 +11,30 @@ Diff two arrays
 
 
 ## Usage
+Basic usage
 
 ```js
 var diffarr = require("diffarr");
+
 var rslt = diffarr([1,2,3], [3,4]);
 assert.deepEqual(rslt, {
   removed: [1, 2],
   same: [3],
   added: [4]
+});
+```
+
+You can also provide a third arg which is a comparision function. In the following example we'll use the `lodash.isEqual` method
+
+```js
+var diffarr = require("diffarr");
+var isEqual = require("lodash.isequal");
+
+var rslt = diffarr([{name: "foo"}, {name: "bar"}], [{name: "bar"}, {name: "baz"}], isEqual);
+assert.deepEqual(rslt, {
+  removed: [{name: "foo"}],
+  same: [{name: "bar"}],
+  added: [{name: "baz"}]
 });
 ```
 

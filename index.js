@@ -1,14 +1,33 @@
-function diffarr(oldArr, newArr) {
-  var removedItems = oldArr.filter(function(item) {
-    return newArr.indexOf(item) < 0;
-  });
+var find = require("lodash.find");
 
-  var sameItems = oldArr.filter(function(item) {
-    return newArr.indexOf(item) > -1;
+
+function defaultComparisionFn(a, b) {
+  return a === b;
+}
+
+function diffarr(oldArr, newArr, comparisionFn) {
+  comparisionFn = comparisionFn || defaultComparisionFn;
+
+  var removedItems = [];
+  var sameItems    = [];
+  
+  oldArr.forEach(function(item) {
+    var ret = find(newArr, function(obj) {
+      return comparisionFn(obj, item);
+    })
+
+    if(!ret) {
+      removedItems.push(item);
+    }
+    else {
+      sameItems.push(item);
+    }
   });
 
   var addedItems = newArr.filter(function(item) {
-    return oldArr.indexOf(item) < 0;
+    return !find(oldArr, function(obj) {
+      return comparisionFn(obj, item);
+    })
   });
 
   return {
